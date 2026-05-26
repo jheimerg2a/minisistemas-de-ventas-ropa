@@ -1,0 +1,29 @@
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Historial de Ventas</h2>
+    <button class="btn-clear-all" (click)="clearAll()">Limpiar</button>
+  </div>
+
+  @if (sales.length === 0) {
+    <div class="empty">
+      <span class="empty-icon">📋</span>
+      <p>Sin ventas registradas aún</p>
+    </div>
+  }
+
+  @for (sale of sales; track sale.id) {
+    <div class="sale-card">
+      <div class="sale-meta">
+        <p class="sale-id">{{ sale.id }}</p>
+        <p class="sale-date">📅 {{ sale.fecha }}</p>
+        <p class="sale-items">
+          🛍️ {{ sale.items.map(i => i.nombre + ' ×' + i.cantidad).join(', ') }}
+        </p>
+      </div>
+      <div class="sale-total">
+        <p class="sale-amount">S/ {{ sale.total.toFixed(2) }}</p>
+        <p class="sale-qty">{{ sale.totalItems }} producto{{ sale.totalItems !== 1 ? 's' : '' }}</p>
+      </div>
+    </div>
+  }
+</section>

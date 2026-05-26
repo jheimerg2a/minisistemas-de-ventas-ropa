@@ -1,0 +1,56 @@
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Carrito</h2>
+    <span class="badge">{{ store.cartCount() }} items</span>
+  </div>
+
+  <div class="cart-box">
+
+    <!-- Vacío -->
+    @if (store.cartItems().length === 0) {
+      <div class="empty">
+        <span class="empty-icon">🛍️</span>
+        <p>El carrito está vacío</p>
+      </div>
+    }
+
+    <!-- Items -->
+    @for (item of store.cartItems(); track item.product.id) {
+      <div class="item">
+        <img class="item-img" [src]="item.product.imagen" [alt]="item.product.nombre" />
+
+        <div class="item-info">
+          <p class="item-name">{{ item.product.nombre }}</p>
+          <p class="item-price">S/ {{ item.product.precio.toFixed(2) }} c/u</p>
+        </div>
+
+        <div class="item-controls">
+          <button class="qty-btn" (click)="store.decrease(item.product.id)">−</button>
+          <span class="qty">{{ item.cantidad }}</span>
+          <button class="qty-btn" (click)="store.increase(item.product.id)">+</button>
+        </div>
+
+        <span class="item-sub">
+          S/ {{ (item.product.precio * item.cantidad).toFixed(2) }}
+        </span>
+
+        <button class="btn-remove" (click)="store.removeFromCart(item.product.id)">✕</button>
+      </div>
+    }
+
+    <!-- Resumen -->
+    @if (store.cartItems().length > 0) {
+      <div class="summary">
+        <div class="summary-row">
+          <span>Total</span>
+          <strong>S/ {{ store.cartTotal().toFixed(2) }}</strong>
+        </div>
+        <button class="btn-checkout" (click)="checkout()">
+          Finalizar Venta ✦
+        </button>
+        <button class="btn-clear" (click)="store.clearCart()">Vaciar carrito</button>
+      </div>
+    }
+
+  </div>
+</section>

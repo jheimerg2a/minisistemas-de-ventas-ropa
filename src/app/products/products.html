@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Productos</h2>
+    <span class="badge">{{ store.products().length }} artículos</span>
+  </div>
+
+  <div class="grid">
+    @for (product of store.products(); track product.id) {
+      <div class="card" [class.out-of-stock]="product.stock === 0">
+
+        <div class="card-img">
+          <img [src]="product.imagen" [alt]="product.nombre" loading="lazy" />
+          <span class="stock-tag" [class.empty]="product.stock === 0">
+            {{ product.stock === 0 ? 'Agotado' : 'Stock: ' + product.stock }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <p class="card-name">{{ product.nombre }}</p>
+          <p class="card-price">S/ {{ product.precio.toFixed(2) }}</p>
+          <button
+            class="btn-add"
+            [disabled]="product.stock === 0"
+            (click)="onAdd(product)"
+          >
+            {{ product.stock === 0 ? 'Sin stock' : '+ Agregar' }}
+          </button>
+        </div>
+
+      </div>
+    }
+  </div>
+</section>

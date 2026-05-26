@@ -1,0 +1,74 @@
+.section { margin-bottom: 3rem; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.btn-clear-all {
+  background: none;
+  border: 1px solid #e8e4de;
+  color: #9a9a9a;
+  font-size: .75rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.btn-clear-all:hover { border-color: #c0392b; color: #c0392b; }
+
+.empty {
+  background: #fff;
+  border: 1px solid #e8e4de;
+  border-radius: 14px;
+  padding: 3rem;
+  text-align: center;
+  color: #9a9a9a;
+}
+.empty-icon { font-size: 2.5rem; display: block; margin-bottom: .75rem; }
+
+.sale-card {
+  background: #fff;
+  border: 1px solid #e8e4de;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  animation: fadeIn .25s ease;
+  transition: box-shadow .2s;
+}
+.sale-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.1); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.sale-meta { flex: 1; }
+.sale-id {
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #9a9a9a;
+  margin-bottom: 4px;
+}
+.sale-date { font-weight: 500; font-size: .88rem; margin-bottom: 6px; }
+.sale-items { font-size: .8rem; color: #5a5a5a; }
+
+.sale-total { text-align: right; flex-shrink: 0; }
+.sale-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #27ae60;
+}
+.sale-qty { font-size: .75rem; color: #9a9a9a; margin-top: 2px; }
