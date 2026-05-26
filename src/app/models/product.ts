@@ -7,17 +7,22 @@ export interface Product {
   imagen: string;
 }
 
-// Un item dentro del carrito
 export interface CartItem {
   product: Product;
   cantidad: number;
 }
 
-// Una venta guardada en historial
 export interface Sale {
   id: string;
   fecha: string;
   items: { nombre: string; cantidad: number; subtotal: number }[];
   totalItems: number;
   total: number;
+}
+
+// ← NUEVO
+export interface User {
+  nombre: string;
+  email: string;
+  rol: 'admin' | 'cajero';
 }

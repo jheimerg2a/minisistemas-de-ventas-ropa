@@ -1,0 +1,88 @@
+<div class="login-screen">
+
+  <!-- Panel izquierdo decorativo -->
+  <div class="login-hero">
+    <div class="hero-content">
+      <span class="hero-icon">✦</span>
+      <h1 class="hero-title">Tienda<br/>de Ropa</h1>
+      <p class="hero-sub">Sistema de Ventas Profesional</p>
+      <div class="hero-tags">
+        <span class="tag">Inventario</span>
+        <span class="tag">Ventas</span>
+        <span class="tag">Historial</span>
+      </div>
+    </div>
+    <div class="hero-circles">
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+      <div class="circle c3"></div>
+    </div>
+  </div>
+
+  <!-- Panel derecho: formulario -->
+  <div class="login-form-panel">
+    <div class="form-box">
+
+      <div class="form-header">
+        <h2 class="form-title">Bienvenido</h2>
+        <p class="form-sub">Ingresa tus credenciales para continuar</p>
+      </div>
+
+      <!-- Accesos rápidos demo -->
+      <div class="demo-access">
+        <p class="demo-label">Acceso rápido demo:</p>
+        <div class="demo-btns">
+          <button class="demo-btn" (click)="fillDemo('admin')">
+            👑 Admin
+          </button>
+          <button class="demo-btn" (click)="fillDemo('cajero')">
+            🏷️ Cajero
+          </button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      @if (error()) {
+        <div class="form-error">
+          ⚠️ {{ error() }}
+        </div>
+      }
+
+      <!-- Campos -->
+      <div class="field">
+        <label class="field-label">Correo electrónico</label>
+        <input
+          class="field-input"
+          type="email"
+          placeholder="usuario@tienda.com"
+          [value]="email()"
+          (input)="email.set($any($event.target).value)"
+        />
+      </div>
+
+      <div class="field">
+        <label class="field-label">Contraseña</label>
+        <input
+          class="field-input"
+          type="password"
+          placeholder="••••••••"
+          [value]="password()"
+          (input)="password.set($any($event.target).value)"
+          (keyup.enter)="onSubmit()"
+        />
+      </div>
+
+      <button class="btn-login" (click)="onSubmit()" [disabled]="loading()">
+        @if (loading()) {
+          <span class="spinner"></span> Verificando...
+        } @else {
+          Ingresar al sistema →
+        }
+      </button>
+
+      <p class="form-hint">Contraseña demo: <strong>1234</strong></p>
+
+    </div>
+  </div>
+
+</div>

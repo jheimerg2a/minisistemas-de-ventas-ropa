@@ -210,3 +210,45 @@ body {
   .modal { box-shadow: none !important; }
   .modal-actions { display: none !important; }
 }
+/* Usuario en header */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #c8963e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.user-name { font-size: .85rem; font-weight: 600; color: #fff; }
+.user-rol  { font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: #9a9a9a; }
+.btn-logout {
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px;
+  background: none;
+  color: rgba(255,255,255,.6);
+  font-size: .75rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+  margin-left: 4px;
+}
+.btn-logout:hover { border-color: #e74c3c; color: #e74c3c; }
+
+@media (max-width: 640px) {
+  .user-meta { display: none; }
+}

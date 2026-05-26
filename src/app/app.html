@@ -1,76 +1,84 @@
-<header class="header">
-  <div class="header-inner">
-    <div class="brand">
-      <span class="brand-icon">✦</span>
-      <div>
-        <h1 class="brand-title">Sistema de Ventas</h1>
-        <p class="brand-sub">Tienda de Ropa</p>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main class="main">
-  <!-- Columna izquierda: productos + historial -->
-  <div class="col-left">
-    <app-products (added)="onProductAdded($event)" />
-    <app-history [refresh]="histRefresh()" />
-  </div>
-
-  <!-- Columna derecha: carrito fijo -->
-  <aside class="col-right">
-    <app-cart (saleDone)="onSaleDone($event)" />
-  </aside>
-</main>
-
-@if (toast()) {
-  <div class="toast" [class]="toastType()">{{ toast() }}</div>
+<!-- Si no hay sesión, mostrar login -->
+@if (!auth.currentUser()) {
+  <app-login (loggedIn)="onLogin()" />
 }
 
-<!-- Modal comprobante -->
-@if (receipt()) {
-  <div class="modal-overlay" (click)="closeReceipt()">
-    <div class="modal" (click)="$event.stopPropagation()">
+<!-- Si hay sesión, mostrar el sistema -->
+@if (auth.currentUser()) {
 
-      <div class="receipt">
-        <div class="receipt-header">
-          <span class="receipt-icon">✦</span>
-          <h2>Tienda de Ropa</h2>
-          <p class="receipt-sub">Comprobante de Venta</p>
-          <p class="receipt-id">{{ receipt()!.id }}</p>
-          <p class="receipt-date">{{ receipt()!.fecha }}</p>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">✦</span>
+        <div>
+          <h1 class="brand-title">Sistema de Ventas</h1>
+          <p class="brand-sub">Tienda de Ropa</p>
         </div>
-
-        <div class="receipt-divider">- - - - - - - - - - - - - - - - -</div>
-
-        <div class="receipt-items">
-          @for (item of receipt()!.items; track item.nombre) {
-            <div class="receipt-row">
-              <span class="receipt-item-name">{{ item.nombre }}</span>
-              <span class="receipt-item-qty">x{{ item.cantidad }}</span>
-              <span class="receipt-item-sub">S/ {{ item.subtotal.toFixed(2) }}</span>
-            </div>
-          }
-        </div>
-
-        <div class="receipt-divider">- - - - - - - - - - - - - - - - -</div>
-
-        <div class="receipt-total-row">
-          <span>TOTAL</span>
-          <span>S/ {{ receipt()!.total.toFixed(2) }}</span>
-        </div>
-
-        <div class="receipt-divider">- - - - - - - - - - - - - - - - -</div>
-
-        <p class="receipt-thanks">¡Gracias por su compra!</p>
-        <p class="receipt-thanks small">Vuelva pronto 🛍️</p>
       </div>
 
-      <div class="modal-actions">
-        <button class="btn-print" (click)="printReceipt()">🖨️ Imprimir</button>
-        <button class="btn-close" (click)="closeReceipt()">Cerrar</button>
+      <!-- Info del usuario logueado -->
+      <div class="user-info">
+        <div class="user-avatar">{{ auth.currentUser()!.nombre.charAt(0) }}</div>
+        <div class="user-meta">
+          <span class="user-name">{{ auth.currentUser()!.nombre }}</span>
+          <span class="user-rol">{{ auth.currentUser()!.rol }}</span>
+        </div>
+        <button class="btn-logout" (click)="logout()">Salir</button>
       </div>
-
     </div>
-  </div>
+  </header>
+
+  <main class="main">
+    <div class="col-left">
+      <app-products (added)="onProductAdded($event)" />
+      <app-history [refresh]="histRefresh()" />
+    </div>
+    <aside class="col-right">
+      <app-cart (saleDone)="onSaleDone($event)" />
+    </aside>
+  </main>
+
+  @if (toast()) {
+    <div class="toast" [class]="toastType()">{{ toast() }}</div>
+  }
+
+  <!-- Modal comprobante -->
+  @if (receipt()) {
+    <div class="modal-overlay" (click)="closeReceipt()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <div class="receipt">
+          <div class="receipt-header">
+            <span class="receipt-icon">✦</span>
+            <h2>Tienda de Ropa</h2>
+            <p class="receipt-sub">Comprobante de Venta</p>
+            <p class="receipt-id">{{ receipt()!.id }}</p>
+            <p class="receipt-date">{{ receipt()!.fecha }}</p>
+          </div>
+          <div class="receipt-divider">- - - - - - - - - - - - - - - - -</div>
+          <div class="receipt-items">
+            @for (item of receipt()!.items; track item.nombre) {
+              <div class="receipt-row">
+                <span class="receipt-item-name">{{ item.nombre }}</span>
+                <span class="receipt-item-qty">x{{ item.cantidad }}</span>
+                <span class="receipt-item-sub">S/ {{ item.subtotal.toFixed(2) }}</span>
+              </div>
+            }
+          </div>
+          <div class="receipt-divider">- - - - - - - - - - - - - - - - -</div>
+          <div class="receipt-total-row">
+            <span>TOTAL</span>
+            <span>S/ {{ receipt()!.total.toFixed(2) }}</span>
+          </div>
+          <div class="receipt-divider">- - - - - - - - - - - - - - - - -</div>
+          <p class="receipt-thanks">¡Gracias por su compra!</p>
+          <p class="receipt-thanks small">Atendido por: {{ auth.currentUser()!.nombre }}</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-print" (click)="printReceipt()">🖨️ Imprimir</button>
+          <button class="btn-close" (click)="closeReceipt()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  }
+
 }

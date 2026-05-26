@@ -1,0 +1,176 @@
+.login-screen {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── Panel izquierdo ── */
+.login-hero {
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+.hero-content { position: relative; z-index: 2; color: #fff; }
+.hero-icon {
+  font-size: 2.5rem;
+  color: #c8963e;
+  display: block;
+  margin-bottom: 1rem;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.hero-sub {
+  font-size: .85rem;
+  color: #9a9a9a;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  padding: 5px 14px;
+  border: 1px solid rgba(200,150,62,.4);
+  border-radius: 999px;
+  font-size: .72rem;
+  color: #c8963e;
+  letter-spacing: .08em;
+}
+
+/* Círculos decorativos */
+.hero-circles { position: absolute; inset: 0; z-index: 1; }
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(200,150,62,.15);
+}
+.c1 { width: 500px; height: 500px; bottom: -200px; right: -200px; }
+.c2 { width: 320px; height: 320px; bottom: -80px;  right: -80px; border-color: rgba(200,150,62,.1); }
+.c3 { width: 160px; height: 160px; top: 60px; left: -60px; }
+
+/* ── Panel derecho ── */
+.login-form-panel {
+  background: #faf8f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+.form-box {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-header { margin-bottom: .25rem; }
+.form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.form-sub { font-size: .85rem; color: #9a9a9a; margin-top: 4px; }
+
+/* Demo access */
+.demo-access {
+  background: #fff;
+  border: 1px solid #e8e4de;
+  border-radius: 10px;
+  padding: .85rem 1rem;
+}
+.demo-label { font-size: .72rem; color: #9a9a9a; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
+.demo-btns  { display: flex; gap: 8px; }
+.demo-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #e8e4de;
+  border-radius: 8px;
+  background: #faf8f5;
+  font-size: .8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.demo-btn:hover { border-color: #c8963e; background: #f5e6cc; }
+
+/* Error */
+.form-error {
+  background: #fdf2f2;
+  border: 1px solid #f5c6c6;
+  border-radius: 8px;
+  padding: .75rem 1rem;
+  font-size: .82rem;
+  color: #c0392b;
+}
+
+/* Campos */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font-size: .78rem; font-weight: 600; color: #5a5a5a; letter-spacing: .04em; }
+.field-input {
+  padding: 13px 16px;
+  border: 1.5px solid #e8e4de;
+  border-radius: 10px;
+  background: #fff;
+  font-size: .92rem;
+  font-family: 'DM Sans', sans-serif;
+  color: #1a1a1a;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+.field-input:focus {
+  border-color: #c8963e;
+  box-shadow: 0 0 0 3px rgba(200,150,62,.12);
+}
+.field-input::placeholder { color: #c8c8c8; }
+
+/* Botón */
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .2s, transform .2s;
+  margin-top: .25rem;
+}
+.btn-login:hover:not(:disabled) {
+  background: #c8963e;
+  transform: translateY(-2px);
+}
+.btn-login:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Spinner */
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.form-hint { font-size: .75rem; color: #9a9a9a; text-align: center; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-screen { grid-template-columns: 1fr; }
+  .login-hero   { display: none; }
+}

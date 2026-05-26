@@ -1,56 +1,72 @@
-<section class="section">
-  <div class="section-header">
-    <h2 class="section-title">Carrito</h2>
-    <span class="badge">{{ store.cartCount() }} items</span>
+<div class="cart-panel">
+
+  <!-- Header -->
+  <div class="cart-header">
+    <div class="cart-title-wrap">
+      <span class="cart-icon">🛒</span>
+      <span class="cart-title">Carrito</span>
+    </div>
+    @if (store.cartCount() > 0) {
+      <span class="cart-count">{{ store.cartCount() }} items</span>
+    }
   </div>
 
-  <div class="cart-box">
+  <!-- Vacío -->
+  @if (store.cartItems().length === 0) {
+    <div class="cart-empty">
+      <span class="cart-empty-icon">🛍️</span>
+      <p>Agrega productos al carrito</p>
+    </div>
+  }
 
-    <!-- Vacío -->
-    @if (store.cartItems().length === 0) {
-      <div class="empty">
-        <span class="empty-icon">🛍️</span>
-        <p>El carrito está vacío</p>
-      </div>
-    }
-
-    <!-- Items -->
-    @for (item of store.cartItems(); track item.product.id) {
-      <div class="item">
-        <img class="item-img" [src]="item.product.imagen" [alt]="item.product.nombre" />
-
-        <div class="item-info">
-          <p class="item-name">{{ item.product.nombre }}</p>
-          <p class="item-price">S/ {{ item.product.precio.toFixed(2) }} c/u</p>
+  <!-- Items -->
+  @if (store.cartItems().length > 0) {
+    <div class="cart-items">
+      @for (item of store.cartItems(); track item.product.id) {
+        <div class="cart-item">
+          <img class="item-thumb" [src]="item.product.imagen" [alt]="item.product.nombre" />
+          <div class="item-info">
+            <p class="item-name">{{ item.product.nombre }}</p>
+            <p class="item-unit">S/ {{ item.product.precio.toFixed(2) }} c/u</p>
+          </div>
+          <div class="item-right">
+            <span class="item-subtotal">S/ {{ (item.product.precio * item.cantidad).toFixed(2) }}</span>
+            <div class="qty-row">
+              <button class="qty-btn" (click)="store.decrease(item.product.id)">−</button>
+              <span class="qty-num">{{ item.cantidad }}</span>
+              <button class="qty-btn" (click)="store.increase(item.product.id)">+</button>
+              <button class="btn-del" (click)="store.removeFromCart(item.product.id)">✕</button>
+            </div>
+          </div>
         </div>
+      }
+    </div>
 
-        <div class="item-controls">
-          <button class="qty-btn" (click)="store.decrease(item.product.id)">−</button>
-          <span class="qty">{{ item.cantidad }}</span>
-          <button class="qty-btn" (click)="store.increase(item.product.id)">+</button>
+    <!-- Footer con total -->
+    <div class="cart-footer">
+      <div class="cart-subtotals">
+        <div class="summary-line">
+          <span>Productos</span>
+          <span>{{ store.cartCount() }}</span>
         </div>
-
-        <span class="item-sub">
-          S/ {{ (item.product.precio * item.cantidad).toFixed(2) }}
-        </span>
-
-        <button class="btn-remove" (click)="store.removeFromCart(item.product.id)">✕</button>
-      </div>
-    }
-
-    <!-- Resumen -->
-    @if (store.cartItems().length > 0) {
-      <div class="summary">
-        <div class="summary-row">
-          <span>Total</span>
-          <strong>S/ {{ store.cartTotal().toFixed(2) }}</strong>
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span>S/ {{ store.cartTotal().toFixed(2) }}</span>
         </div>
-        <button class="btn-checkout" (click)="checkout()">
-          Finalizar Venta ✦
-        </button>
-        <button class="btn-clear" (click)="store.clearCart()">Vaciar carrito</button>
       </div>
-    }
 
-  </div>
-</section>
+      <div class="total-line">
+        <span class="total-label">Total a pagar</span>
+        <span class="total-amount">S/ {{ store.cartTotal().toFixed(2) }}</span>
+      </div>
+
+      <button class="btn-checkout" (click)="checkout()">
+        ✦ Finalizar Venta
+      </button>
+      <button class="btn-clear-cart" (click)="store.clearCart()">
+        Vaciar carrito
+      </button>
+    </div>
+  }
+
+</div>
